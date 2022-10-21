@@ -17,9 +17,14 @@ let buyBotton = `<input type="button" class="btn-mine3" value="+ Add to Cart">`
 
 for(let i = 0; i<9; i++){
     let precioAleatorio = Math.round(Math.random()*100 + 200);
-    let prod = addProd(nombre[i], `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
+    let prod = null
+    if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
+        prod = addProd(nombre[i], `<b>USD $${precioAleatorio} OFERTA!!</b>`,`./img/productos/drone${i}.png`);
+    }else {
+        prod = addProd(nombre[i], `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
+    }
+
     let div = document.createElement("DIV");
-    div.tabIndex = i;
     div.classList.add(`item-${i}`,`item`);
     div.innerHTML = prod[0] + prod[1] + prod[2] + buyBotton;
     documentFragment.appendChild(div);
