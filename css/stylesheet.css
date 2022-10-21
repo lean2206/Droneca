@@ -11,7 +11,7 @@
   margin-right: 20px;
 }
 
-.btn-mine, .btn-mine2 {
+.btn-mine, .btn-mine3, .btn-mine2 {
   background-color: white;
   border: none;
   font-size: 1.1em;
@@ -21,7 +21,7 @@
   width: 180px;
   margin: 15px 15px 0px 15px;
 }
-.btn-mine:hover, .btn-mine2:hover {
+.btn-mine:hover, .btn-mine3:hover, .btn-mine2:hover {
   animation: pulsate 1s ease-in-out infinite;
   background: rgb(255, 255, 255);
   backdrop-filter: blur(4.5px);
@@ -33,6 +33,14 @@
   padding: 5px;
   width: 140px;
   margin: 5px 15px 10px 20px;
+}
+
+.btn-mine3 {
+  padding: 5px;
+  width: 140px;
+  margin: 0 0 10px 0;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .banner {
@@ -81,6 +89,7 @@
 
 .pre-prod {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   position: relative;
 }
@@ -133,6 +142,31 @@
 .prod-text3 {
   color: white;
   background-color: #c28660;
+}
+
+.prod-grid {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  row-gap: 50px;
+  grid-template-rows: auto;
+  justify-content: center;
+  column-gap: 90px;
+  position: relative;
+  top: 140px;
+}
+
+.item {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: lightgrey;
+  padding: 10px;
+}
+.item img {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  left: 66px;
 }
 
 @keyframes pulsate {
