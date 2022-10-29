@@ -54,17 +54,43 @@
 
 .banner {
   overflow-x: hidden;
+  display: flex;
+}
+.banner .banner-img2 {
+  display: none;
+}
+@media screen and (max-width: 563px) {
+  .banner {
+    justify-content: center;
+  }
+  .banner .banner-img {
+    display: none;
+  }
+  .banner .banner-img2 {
+    display: flex;
+    width: 100%;
+    height: 300px;
+  }
 }
 
 .banner-text {
   color: white;
   position: absolute;
   z-index: 20;
-  left: 90px;
+  margin-left: 90px;
   top: 170px;
 }
 .banner-text p {
   font-size: 20px;
+}
+@media screen and (max-width: 563px) {
+  .banner-text {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+  }
 }
 
 .banner-img {

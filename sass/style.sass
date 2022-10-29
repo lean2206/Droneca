@@ -53,16 +53,42 @@
 
 .banner
     overflow-x: hidden
+    display: flex
+    .banner-img2
+        display: none
+    @media screen and (max-width: 563px)
+        justify-content: center
+        .banner-img
+            display: none
+        .banner-img2
+            display: flex
+            width: 100%
+            height: 300px
+
+            
+
 
 .banner-text
     color: white
     position: absolute
     z-index: 20
-    left: 90px
+    margin-left: 90px
     top: 170px
 
     p
         font-size: 20px
+
+    @media screen and (max-width: 563px)
+        margin-left: 0
+        display: flex
+        flex-direction: column
+        width: 60%
+        align-items: center
+
+        
+
+
+
 
 .banner-img
     position: relative
@@ -84,6 +110,9 @@
         width: 40px
         height: 40px
     
+
+
+
 .pre-prods
     display: flex
     justify-content: space-around
