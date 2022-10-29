@@ -18,12 +18,30 @@ const addToCart = function(){
 
 }
 
+function moverseA(idDelElemento) {
+    location.hash = "#" + idDelElemento;
+  }
+
+function captura(){
+    let prodSearch = document.getElementById("busqueda").value
+    prodSearch = prodSearch.toLowerCase()
+    if (nombreModif.some( (nomb) => nomb == prodSearch)){
+        let prodId = nombreModif.indexOf(prodSearch)
+        let seleccionado = document.getElementById(prodId)
+        moverseA(prodId)
+    }else {
+        alert("El producto no existe")
+    }
+}
+
+
 const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
 let documentFragment = document.createDocumentFragment();
 let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];
+let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
 let total = 0
 
-for(let i = 0; i<9; i++){
+for(let i = 0; i<nombre.length; i++){
     let precioAleatorio = Math.round(Math.random()*100 + 200);
     let prod = null
 
@@ -48,5 +66,8 @@ const botones = document.querySelectorAll(".addprod");
 botones.forEach(boton => {
     boton.addEventListener("click", addToCart);
 });
+
+
+
 
 
