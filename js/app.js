@@ -14,12 +14,27 @@ function addProd(nombre, precio, img){
 const addToCart = function(){
     total += parseInt(this.value);
     id = this.id
-    alert(`${nombre[id]} añadido al carrito! El total es: USD$${total}`);
+
+    Swal.fire({
+        title: `${nombre[id]} añadido al carrito!`,
+        text: `El total es: USD$${total}`,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Seguir Comprando!',
+        cancelButtonText: 'Finalizar Compra'
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            Swal.fire(`El total de la compra es USD$${total}`)
+            total = 0
+        }
+    })
 
 }
 
-function moverseA(idDelElemento) {
-    location.hash = "#" + idDelElemento;
+function moverseA(idElemento) {
+    location.hash = "#" + idElemento;
   }
 
 function captura(){
@@ -30,7 +45,13 @@ function captura(){
         let seleccionado = document.getElementById(prodId)
         moverseA(prodId)
     }else {
-        alert("El producto no existe")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ese producto no existe',
+            timer: 5000
+          })
+          moverseA("nav")
     }
 }
 
@@ -46,7 +67,7 @@ for(let i = 0; i<nombre.length; i++){
     let prod = null
 
     if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
-        prod = addProd(nombre[i], `<b>USD $${precioAleatorio} OFERTA!!</b>`,`./img/productos/drone${i}.png`);
+        prod = addProd(nombre[i], `<b>USD $${precioAleatorio} SALE!!</b>`,`./img/productos/drone${i}.png`);
     }else {
         prod = addProd(nombre[i], `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
     }

@@ -17,14 +17,14 @@
     <body>
 
         <header>
-            <nav class="navbar sticky-top">
+            <nav id="nav" class="navbar sticky-top">
                 <div class="container-fluid">
                 <a href="./index.html"><img src=./img/logo.png alt="Logo Droneca" class="navbar-brand"></a>
                 <form class="d-flex" role="search">
                     <button class="btn btn-outline-primary">Store</button>
                     <a href="#store"></a>
-                    <input id="busqueda" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit" onclick="captura()">Buscar</button>
+                    <input id="busqueda" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" onclick="captura()">Search</button>
                 </form>
                 </div>
             </nav>
@@ -84,11 +84,12 @@
             <div class="prod-grid"></div>
 
             <div class="carrito"></div>
-            
 
         </main>
         
 
         <script src="./js/app.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="sweetalert2.all.min.js"></script>
     </body>
 </html>
