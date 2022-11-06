@@ -62,6 +62,9 @@ let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s
 let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
 let total = 0
 
+let busqueda = document.getElementById("btn-busqueda")
+
+
 for(let i = 0; i<nombre.length; i++){
     let precioAleatorio = Math.round(Math.random()*100 + 200);
     let prod = null
@@ -79,7 +82,7 @@ for(let i = 0; i<nombre.length; i++){
     documentFragment.appendChild(div);
 }
 
-contenedor.appendChild(documentFragment);
+contenedor.append(documentFragment);
 
 
 const botones = document.querySelectorAll(".addprod");
@@ -87,6 +90,10 @@ const botones = document.querySelectorAll(".addprod");
 botones.forEach(boton => {
     boton.addEventListener("click", addToCart);
 });
+
+busqueda.onclick = captura
+
+
 
 
 
