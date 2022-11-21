@@ -1,6 +1,9 @@
 /* Esta función se encarga de crear HTML para agregar un producto a la interfaz. Se debe proporcionar el nombre, precio y la ruta de la imágen del producto
  */
 
+
+
+
 function addProd(nombre, precio, img){
     
     img = `<img class=new-prod src="${img}">`;
@@ -10,10 +13,32 @@ function addProd(nombre, precio, img){
     return [img,nombre,precio];
 }
 
+class usuario {
+    
+    constructor (nombre,apellido,email,total=0) {
+        this.nombre = nombre
+        this.apellido = apellido
+        this.email = email
+        this.carrito = []
+        this.total = total
+    }
+}
 
-const addToCart = function(){
-    total += parseInt(this.value);
-    id = this.id
+const checkUser = () => { //Chequear si hay algun usuario logueado o compra sin finalizar
+    let currentUser = localStorage.getItem("currentUser")  
+
+    if (currentUser === "Null") {
+        return false
+    }
+    return currentUser
+}
+
+const cartOperation = (obj,currentUser) =>{
+    total += parseInt(obj.value)
+    id = obj.id
+    currentUser.carrito.push(nombre[id])
+    currentUser.total = total
+    localStorage.setItem("currentUser", JSON.stringify(currentUser))
 
     Swal.fire({
         title: `${nombre[id]} añadido al carrito!`,
@@ -28,8 +53,46 @@ const addToCart = function(){
         if (!result.isConfirmed) {
             Swal.fire(`El total de la compra es USD$${total}`)
             total = 0
+            localStorage.clear()
         }
     })
+    
+
+}
+
+const addToCart = function(){
+
+    let currentUser = checkUser()
+    obj = this
+    alert(currentUser)
+    if (currentUser) {
+        currentUser = JSON.parse(currentUser)
+        cartOperation(obj,currentUser)
+    
+    }else {
+            (async () => {
+
+                const { value: formValues } = await Swal.fire({
+                    title: 'Registro de Usuario',
+                    html:
+                    '<input id="swal-input1" class="swal2-input" placeholder="Nombre">' +
+                    '<input id="swal-input2" class="swal2-input" placeholder="Apellido">' +
+                    '<input id="swal-input3" class="swal2-input" placeholder="Email">',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            document.getElementById('swal-input1').value,
+                            document.getElementById('swal-input2').value,
+                            document.getElementById('swal-input3').value
+                        ]
+                    }
+                })
+
+                currentUser = new usuario(formValues[0],formValues[1],formValues[2])
+                localStorage.setItem("currentUser", JSON.stringify(currentUser))
+                cartOperation(obj,currentUser)
+            })()
+        }
 
 }
 
@@ -37,7 +100,7 @@ function moverseA(idElemento) {
     location.hash = "#" + idElemento;
   }
 
-function captura(){
+function captura(){  //captura del elemento buscado
     let prodSearch = document.getElementById("busqueda").value
     prodSearch = prodSearch.toLowerCase()
     if (nombreModif.some( (nomb) => nomb == prodSearch)){
