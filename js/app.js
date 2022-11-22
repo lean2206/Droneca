@@ -64,7 +64,6 @@ const addToCart = function(){
 
     let currentUser = checkUser()
     obj = this
-    alert(currentUser)
     if (currentUser) {
         currentUser = JSON.parse(currentUser)
         cartOperation(obj,currentUser)
