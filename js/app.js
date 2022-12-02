@@ -20,6 +20,7 @@ class usuario {
         this.apellido = apellido
         this.email = email
         this.carrito = []
+        this.itemCost = []
         this.total = total
     }
 }
@@ -33,10 +34,24 @@ const checkUser = () => { //Chequear si hay algun usuario logueado o compra sin 
     return currentUser
 }
 
+const constructorHTML = () => {
+    const cart = JSON.parse(localStorage.getItem('currentUser')).carrito
+    const precios = JSON.parse(localStorage.getItem('currentUser')).itemCost
+    let htmlText = []
+
+    for(i in cart){
+        htmlText+= `- ${cart[i]}: ${precios[i]} <br>`
+    }
+    
+    return htmlText
+}
+
+
 const cartOperation = (obj,currentUser) =>{
     total += parseInt(obj.value)
     id = obj.id
     currentUser.carrito.push(nombre[id])
+    currentUser.itemCost.push(`$${obj.value}`)
     currentUser.total = total
     localStorage.setItem("currentUser", JSON.stringify(currentUser))
 
@@ -51,12 +66,16 @@ const cartOperation = (obj,currentUser) =>{
         cancelButtonText: 'Finalizar Compra'
     }).then((result) => {
         if (!result.isConfirmed) {
-            Swal.fire(`El total de la compra es USD$${total}`)
+            
+            Swal.fire({
+                title: `El total de la compra es USD$${total}`,
+                icon: 'success',
+                html: constructorHTML()
+            })
             total = 0
             localStorage.clear()
         }
     })
-    
 
 }
 
@@ -120,7 +139,7 @@ function captura(){  //captura del elemento buscado
 
 const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
 let documentFragment = document.createDocumentFragment();
-let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];
+let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];  
 let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
 let total = 0
 
