@@ -98,6 +98,7 @@ const addToCart = function(){
                     '<input id="swal-input3" class="swal2-input" placeholder="Email">',
                     focusConfirm: false,
                     preConfirm: () => {
+
                         return [
                             document.getElementById('swal-input1').value,
                             document.getElementById('swal-input2').value,
@@ -106,7 +107,15 @@ const addToCart = function(){
                     }
                 })
 
-                currentUser = new usuario(formValues[0],formValues[1],formValues[2])
+                if(formValues[0] && formValues[1] && formValues[2]){//Chequeo que no hayan campos vacios 
+                    currentUser = new usuario(formValues[0],formValues[1],formValues[2])
+                }else {
+                     Swal.fire(
+                        'Usuario no Válido',
+                        'Ingresar de Nuevo',
+                        'warning'
+                    )
+                }
                 localStorage.setItem("currentUser", JSON.stringify(currentUser))
                 cartOperation(obj,currentUser)
             })()
