@@ -109,6 +109,8 @@ const addToCart = function(){
 
                 if(formValues[0] && formValues[1] && formValues[2]){//Chequeo que no hayan campos vacios 
                     currentUser = new usuario(formValues[0],formValues[1],formValues[2])
+                    localStorage.setItem("currentUser", JSON.stringify(currentUser))
+                    cartOperation(obj,currentUser)
                 }else {
                      Swal.fire(
                         'Usuario no Válido',
@@ -116,8 +118,7 @@ const addToCart = function(){
                         'warning'
                     )
                 }
-                localStorage.setItem("currentUser", JSON.stringify(currentUser))
-                cartOperation(obj,currentUser)
+                
             })()
         }
 
