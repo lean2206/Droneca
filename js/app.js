@@ -145,7 +145,7 @@ let total = 0
 let busqueda = document.getElementById("btn-busqueda")
 
 
-fetch("/json/productos.json")
+fetch("../json/productos.json")
 .then((response) => response.json())
 .then((response) =>  {
     
@@ -191,7 +191,7 @@ fetch("/json/productos.json")
 
 
 
- 
+
 /* const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
 let documentFragment = document.createDocumentFragment();
 let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];  
