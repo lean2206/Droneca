@@ -81,7 +81,12 @@ const cartOperation = (obj,currentUser) =>{
 const addToCart = function(){
 
     let currentUser = checkUser()
-    obj = this
+    obj = this.nombre? this : "NN"
+     
+    if (obj == "NN"){
+        return false 
+    }
+    
     if (currentUser) {
         currentUser = JSON.parse(currentUser)
         cartOperation(obj,currentUser)
