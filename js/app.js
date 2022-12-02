@@ -145,7 +145,7 @@ let total = 0
 let busqueda = document.getElementById("btn-busqueda")
 
 
-fetch("/json/productos.json")
+fetch("../json/productos.json")
 .then((response) => response.json())
 .then((response) =>  {
     
