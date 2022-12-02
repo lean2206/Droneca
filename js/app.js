@@ -1,7 +1,3 @@
-/* Esta función se encarga de crear HTML para agregar un producto a la interfaz. Se debe proporcionar el nombre, precio y la ruta de la imágen del producto
- */
-
-
 
 
 function addProd(nombre, precio, img){
@@ -123,7 +119,7 @@ function captura(){  //captura del elemento buscado
     prodSearch = prodSearch.toLowerCase()
     if (nombreModif.some( (nomb) => nomb == prodSearch)){
         let prodId = nombreModif.indexOf(prodSearch)
-        let seleccionado = document.getElementById(prodId)
+        /* let seleccionado = document.getElementById(prodId) */
         moverseA(prodId)
     }else {
         Swal.fire({
@@ -152,7 +148,7 @@ fetch("../../Droneca/json/productos.json")
     response.forEach((item,i) => {
     
     nombre.push(item.nombre)
-    nombreModif = item.nombre.toLowerCase()
+    nombreModif.push(item.nombre.toLowerCase())
     let precioAleatorio = Math.round(Math.random()*100 + 200);
     let prod = null
 
