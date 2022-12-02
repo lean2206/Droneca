@@ -140,6 +140,10 @@ function captura(){  //captura del elemento buscado
 const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
 let documentFragment = document.createDocumentFragment();
 let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];  
+
+nombre = fetch("/json/productos.json")
+    .then((response) => response.json())
+
 let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
 let total = 0
 
