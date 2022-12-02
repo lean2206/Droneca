@@ -69,7 +69,28 @@ const cartOperation = (obj,currentUser) =>{
                 html: constructorHTML()
             })
             total = 0
-            localStorage.clear()
+            currentUser.carrito = []
+            currentUser.total = 0
+            localStorage.setItem("currentUser", JSON.stringify(currentUser))
+
+            Swal.fire({
+                title: '¿Seguir comprando con el mismo usuario?',
+                text: "Se borrarán los datos de usuario",
+                icon: 'question',
+                showCancelButton: true,
+                cancelButtonText: "Seguir Comprando",
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Borrar Usuario'
+              }).then((result) => {
+                if (!result.isConfirmed) {
+                    localStorage.clear()
+                    Swal.fire(
+                    'Usuario Eliminado',
+                    'success'
+                  )
+                }
+              })
         }
     })
 
@@ -147,23 +168,23 @@ fetch("../../Droneca/json/productos.json")
     
     response.forEach((item,i) => {
     
-    nombre.push(item.nombre)
-    nombreModif.push(item.nombre.toLowerCase())
-    let precioAleatorio = Math.round(Math.random()*100 + 200);
-    let prod = null
+        nombre.push(item.nombre)
+        nombreModif.push(item.nombre.toLowerCase())
+        let precioAleatorio = Math.round(Math.random()*100 + 200);
+        let prod = null
 
-    if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
-        prod = addProd(item.nombre, `<b>USD $${precioAleatorio} SALE!!</b>`,`./img/productos/drone${i}.png`);
-    }else {
-        prod = addProd(item.nombre, `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
-    }
+        if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
+            prod = addProd(item.nombre, `<b>USD $${precioAleatorio} SALE!!</b>`,`./img/productos/drone${i}.png`);
+        }else {
+            prod = addProd(item.nombre, `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
+        }
 
-    let buyBotton = `<button id=${i} type="submit" class="btn-mine3 addprod" value=${precioAleatorio}> + Add to Cart</button>`
-    let div = document.createElement("DIV");
-    div.classList.add(`item-${i}`,`item`);
-    div.innerHTML = prod[0] + prod[1] + prod[2] + buyBotton;
-    documentFragment.appendChild(div);
-    
+        let buyBotton = `<button id=${i} type="submit" class="btn-mine3 addprod" value=${precioAleatorio}> + Add to Cart</button>`
+        let div = document.createElement("DIV");
+        div.classList.add(`item-${i}`,`item`);
+        div.innerHTML = prod[0] + prod[1] + prod[2] + buyBotton;
+        documentFragment.appendChild(div);
+        
     })
 
     contenedor.append(documentFragment)
