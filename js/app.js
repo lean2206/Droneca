@@ -1,5 +1,4 @@
 
-
 function addProd(nombre, precio, img){
     
     img = `<img class=new-prod src="${img}">`;
@@ -24,11 +23,12 @@ class usuario {
 const checkUser = () => { //Chequear si hay algun usuario logueado o compra sin finalizar
     let currentUser = localStorage.getItem("currentUser")  
 
-    if (currentUser === "Null") {
+    if (currentUser === null) {
         return false
     }
     return currentUser
 }
+
 
 const constructorHTML = () => {
     const cart = JSON.parse(localStorage.getItem('currentUser')).carrito
@@ -36,7 +36,7 @@ const constructorHTML = () => {
     let htmlText = []
 
     for(i in cart){
-        htmlText+= `- ${cart[i]}: ${precios[i]} <br>`
+        htmlText+= `- <b>${cart[i]}</b>: ${precios[i]} <br>`
     }
     
     return htmlText
@@ -52,50 +52,30 @@ const cartOperation = (obj,currentUser) =>{
     localStorage.setItem("currentUser", JSON.stringify(currentUser))
 
     Swal.fire({
-        title: `${nombre[id]} añadido al carrito!`,
+        title: `${currentUser.nombre} añadimos ${nombre[id]} a tu carrito!`,
         text: `El total es: USD$${total}`,
         icon: 'success',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Seguir Comprando!',
-        cancelButtonText: 'Finalizar Compra'
+        cancelButtonText: 'Finalizar compra',
+        confirmButtonText: 'Seguir Comprando',
     }).then((result) => {
         if (!result.isConfirmed) {
             
             Swal.fire({
-                title: `El total de la compra es USD$${total}`,
+                title: `El total de tu compra es USD$${total}`,
                 icon: 'success',
                 html: constructorHTML(),
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok'
             })
             total = 0
-            currentUser.carrito = []
-            currentUser.total = 0
-            localStorage.setItem("currentUser", JSON.stringify(currentUser))
+            localStorage.clear()
 
-            Swal.fire({
-                title: '¿Seguir comprando con el mismo usuario?',
-                text: "Se borrarán los datos de usuario",
-                icon: 'question',
-                showCancelButton: true,
-                cancelButtonText: "Seguir Comprando",
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Borrar Usuario'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.clear()
-                    Swal.fire({
-                        title:'Usuario Eliminado',
-                        icon: 'success'
-                    })
-                }
-              })
         }
     })
-
+    
 }
 
 const addToCart = function(){
@@ -199,56 +179,4 @@ fetch("../../Droneca/json/productos.json")
 
  } )
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
-let documentFragment = document.createDocumentFragment();
-let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];  
-let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
-
-
-for(let i = 0; i<nombre.length; i++){
-    let precioAleatorio = Math.round(Math.random()*100 + 200);
-    let prod = null
-
-    if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
-        prod = addProd(nombre[i], `<b>USD $${precioAleatorio} SALE!!</b>`,`./img/productos/drone${i}.png`);
-    }else {
-        prod = addProd(nombre[i], `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
-    }
-
-    let buyBotton = `<button id=${i} type="submit" class="btn-mine3 addprod" value=${precioAleatorio}> + Add to Cart</button>`
-    let div = document.createElement("DIV");
-    div.classList.add(`item-${i}`,`item`);
-    div.innerHTML = prod[0] + prod[1] + prod[2] + buyBotton;
-    documentFragment.appendChild(div);
-}
-
-contenedor.append(documentFragment);
-
-
-const botones = document.querySelectorAll(".addprod");
-
-botones.forEach(boton => {
-    boton.addEventListener("click", addToCart);
-});
-
-busqueda.onclick = captura
-
- */
-
-
-
-
-
-
+ 
