@@ -85,7 +85,7 @@ const cartOperation = (obj,currentUser) =>{
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Borrar Usuario'
               }).then((result) => {
-                if (!result.isConfirmed) {
+                if (result.isConfirmed) {
                     localStorage.clear()
                     Swal.fire({
                         title:'Usuario Eliminado',
