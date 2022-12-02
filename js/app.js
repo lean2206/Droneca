@@ -139,11 +139,63 @@ function captura(){  //captura del elemento buscado
 
 const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
 let documentFragment = document.createDocumentFragment();
+let nombre = []
+let nombreModif = []
+let total = 0
+let busqueda = document.getElementById("btn-busqueda")
+
+
+fetch("/json/productos.json")
+.then((response) => response.json())
+.then((response) =>  {
+    
+    response.forEach((item,i) => {
+    
+    nombre.push(item.nombre)
+    nombreModif = item.nombre.toLowerCase()
+    let precioAleatorio = Math.round(Math.random()*100 + 200);
+    let prod = null
+
+    if(precioAleatorio<240){ //Si el precio es menor a 240 se coloca un cartel de oferta
+        prod = addProd(item.nombre, `<b>USD $${precioAleatorio} SALE!!</b>`,`./img/productos/drone${i}.png`);
+    }else {
+        prod = addProd(item.nombre, `USD $${precioAleatorio}`,`./img/productos/drone${i}.png`);
+    }
+
+    let buyBotton = `<button id=${i} type="submit" class="btn-mine3 addprod" value=${precioAleatorio}> + Add to Cart</button>`
+    let div = document.createElement("DIV");
+    div.classList.add(`item-${i}`,`item`);
+    div.innerHTML = prod[0] + prod[1] + prod[2] + buyBotton;
+    documentFragment.appendChild(div);
+    
+    })
+
+    contenedor.append(documentFragment)
+    const botones = document.querySelectorAll(".addprod");
+    botones.forEach(boton => {
+        boton.addEventListener("click", addToCart)
+    });
+
+    busqueda.onclick = captura
+
+ } )
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+/* const contenedor = document.querySelector(".prod-grid") //contenedor donde se arma el grid de productos
+let documentFragment = document.createDocumentFragment();
 let nombre = ["Mavic 3","Avata", "Mini 3 Pro", "Osmo Action", "Ronin 4", "Air 2s", "Mini 2s", "Inspire X5", "Droneca X34s"];  
 let nombreModif = nombre.map( (nomb) => nomb.toLowerCase())
-let total = 0
-
-let busqueda = document.getElementById("btn-busqueda")
 
 
 for(let i = 0; i<nombre.length; i++){
@@ -174,6 +226,7 @@ botones.forEach(boton => {
 
 busqueda.onclick = captura
 
+ */
 
 
 
