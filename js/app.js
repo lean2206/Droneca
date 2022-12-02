@@ -66,7 +66,9 @@ const cartOperation = (obj,currentUser) =>{
             Swal.fire({
                 title: `El total de la compra es USD$${total}`,
                 icon: 'success',
-                html: constructorHTML()
+                html: constructorHTML(),
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok'
             })
             total = 0
             currentUser.carrito = []
@@ -85,10 +87,10 @@ const cartOperation = (obj,currentUser) =>{
               }).then((result) => {
                 if (!result.isConfirmed) {
                     localStorage.clear()
-                    Swal.fire(
-                    'Usuario Eliminado',
-                    'success'
-                  )
+                    Swal.fire({
+                        title:'Usuario Eliminado',
+                        icon: 'success'
+                    })
                 }
               })
         }
