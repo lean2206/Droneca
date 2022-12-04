@@ -107,17 +107,22 @@ const addToCart = function(){
                     }
                 })
 
-                if(formValues[0] && formValues[1] && formValues[2]){//Chequeo que no hayan campos vacios 
-                    currentUser = new usuario(formValues[0],formValues[1],formValues[2])
-                    localStorage.setItem("currentUser", JSON.stringify(currentUser))
-                    cartOperation(obj,currentUser)
-                }else {
-                     Swal.fire(
-                        'Usuario no Válido',
-                        'Ingresar de Nuevo',
-                        'warning'
-                    )
+                try {
+                    if(formValues[0] && formValues[1] && formValues[2]){//Chequeo que no hayan campos vacios 
+                        currentUser = new usuario(formValues[0],formValues[1],formValues[2])
+                        localStorage.setItem("currentUser", JSON.stringify(currentUser))
+                        cartOperation(obj,currentUser)
+                    }else {
+                         Swal.fire(
+                            'Usuario no Válido',
+                            'Ingresar de Nuevo',
+                            'warning'
+                        )
+                    }
+                } catch(err){
+                    console.log("El usuario omitió el login")
                 }
+
                 
             })()
         }
