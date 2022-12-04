@@ -1,5 +1,5 @@
 
-function addProd(nombre, precio, img){
+function addProd(nombre, precio, img){ //Esta función devuelve strings para armar el HTML de los productos
     
     img = `<img class=new-prod src="${img}">`;
     nombre = `<h2>${nombre}</h2>`;
@@ -8,7 +8,7 @@ function addProd(nombre, precio, img){
     return [img,nombre,precio];
 }
 
-class usuario {
+class usuario { //INFO del usuario logueado que quiere comprar
     
     constructor (nombre,apellido,email,total=0) {
         this.nombre = nombre
@@ -30,7 +30,7 @@ const checkUser = () => { //Chequear si hay algun usuario logueado o compra sin 
 }
 
 
-const constructorHTML = () => {
+const constructorHTML = () => { //Esta función arma el HTML para mostrar los productos que se compraron cuando se finaliza una compra. Ayuda a simplificar la vista en el Swal.fire
     const cart = JSON.parse(localStorage.getItem('currentUser')).carrito
     const precios = JSON.parse(localStorage.getItem('currentUser')).itemCost
     let htmlText = []
@@ -43,7 +43,7 @@ const constructorHTML = () => {
 }
 
 
-const cartOperation = (obj,currentUser) =>{
+const cartOperation = (obj,currentUser) =>{ //Con esta función actualizo el carrito cada vez que se agrega un producto
     total += parseInt(obj.value)
     id = obj.id
     currentUser.carrito.push(nombre[id])
@@ -61,10 +61,8 @@ const cartOperation = (obj,currentUser) =>{
         cancelButtonText: 'Finalizar compra',
         confirmButtonText: 'Seguir Comprando',
     }).then((result) => {
-        console.log(result)
-        if ((!result.isConfirmed && (result.dismiss=="cancel"))) {
-            
-            Swal.fire({
+        if ((!result.isConfirmed && (result.dismiss=="cancel"))) { //Tuve que usar !result.isConfirmed porque is.Denied siempre arroja false
+            Swal.fire({ //En este punto, el usuario finalizó la compra
                 title: `El total de tu compra es USD$${total}`,
                 icon: 'success',
                 html: constructorHTML(),
