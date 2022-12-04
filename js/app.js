@@ -62,7 +62,7 @@ const cartOperation = (obj,currentUser) =>{
         confirmButtonText: 'Seguir Comprando',
     }).then((result) => {
         console.log(result)
-        if ((!result.isConfirmed && (result.dismiss!='backdrop'))) {
+        if ((!result.isConfirmed && (result.dismiss=="cancel"))) {
             
             Swal.fire({
                 title: `El total de tu compra es USD$${total}`,
