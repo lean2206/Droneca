@@ -61,6 +61,7 @@ const cartOperation = (obj,currentUser) =>{
         cancelButtonText: 'Finalizar compra',
         confirmButtonText: 'Seguir Comprando',
     }).then((result) => {
+        console.log(result)
         if (!result.isConfirmed) {
             
             Swal.fire({
